@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Recipe Finder</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="header-content">
+          <div class="logo">
+            <i class="fas fa-utensils"></i>
+            <h1>SmartRecipe Finder</h1>
+          </div>
+          <div class="user-menu">
+            <span id="user-greeting">Welcome, User!</span>
+            <button id="logout-btn" class="logout-btn">
+              <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+          </div>
+        </div>
+        <p>
+          Enter ingredients you have, and we'll suggest authentic Indian
+          recipes!
+        </p>
+      </header>
+
+      <div class="search-section">
+        <div class="input-group">
+          <input
+            type="text"
+            id="ingredient-input"
+            placeholder="Enter an ingredient (e.g., chicken, rice, spices)"
+          />
+          <button id="add-ingredient"><i class="fas fa-plus"></i> Add</button>
+        </div>
+        <div id="ingredients-list" class="ingredients-list"></div>
+        <button id="find-recipes" class="find-btn">
+          <span class="btn-text">Find Indian Recipes</span>
+          <div class="btn-loader hidden">
+            <div class="loader-dot"></div>
+            <div class="loader-dot"></div>
+            <div class="loader-dot"></div>
+          </div>
+        </button>
+        <button id="clear-ingredients" class="clear-btn">Clear All</button>
+      </div>
+
+      <div class="results-header hidden" id="results-header">
+        <h2>Indian Recipes for You <i class="fas fa-utensil-spoon"></i></h2>
+        <p id="results-count">Found <span>0</span> recipes</p>
+      </div>
+
+      <div class="loading hidden" id="loading">
+        <div class="spinner"></div>
+        <p>Finding delicious Indian recipes...</p>
+      </div>
+
+      <div id="recipes-container" class="recipes-container"></div>
+
+      <div class="empty-state" id="empty-state">
+        <div class="empty-icon">
+          <i class="fas fa-search"></i>
+        </div>
+        <h3>Find Authentic Indian Recipes</h3>
+        <p>
+          Add ingredients you have on hand to discover traditional Indian
+          recipes and reduce food waste.
+        </p>
+        <div class="suggestions">
+          <p>
+            Try adding:
+            <span class="suggestion-tags">
+              <span class="suggestion-tag" data-ingredient="chicken"
+                >chicken</span
+              >
+              <span class="suggestion-tag" data-ingredient="rice">rice</span>
+              <span class="suggestion-tag" data-ingredient="lentils"
+                >lentils</span
+              >
+              <span class="suggestion-tag" data-ingredient="spices"
+                >spices</span
+              >
+            </span>
+          </p>
+        </div>
+      </div>
+
+      <footer>
+        <p>
+          Made with <i class="fas fa-heart"></i> to celebrate Indian cuisine
+        </p>
+      </footer>
+    </div>
+
+    <!-- Recipe Modal -->
+    <div id="recipe-modal" class="modal hidden">
+      <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <div id="modal-recipe-content"></div>
+      </div>
+    </div>
+
+    <div class="notification" id="notification"></div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

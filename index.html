@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Indian Recipe Finder</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="login-body">
+    <div class="login-container">
+      <div class="login-card">
+        <div class="login-header">
+          <div class="logo">
+            <i class="fas fa-utensils"></i>
+            <h1>Indian Recipe Finder</h1>
+          </div>
+          <p>Discover authentic Indian recipes with your ingredients</p>
+        </div>
+
+        <form class="login-form" id="login-form">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <div class="input-with-icon">
+              <i class="fas fa-envelope"></i>
+              <input
+                type="email"
+                id="email"
+                placeholder="Enter your email"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <div class="input-with-icon">
+              <i class="fas fa-lock"></i>
+              <input
+                type="password"
+                id="password"
+                placeholder="Enter your password"
+                required
+              />
+              <button
+                type="button"
+                class="toggle-password"
+                id="toggle-password"
+              >
+                <i class="fas fa-eye"></i>
+              </button>
+            </div>
+          </div>
+
+          <button type="submit" class="login-btn">
+            <span class="btn-text">Login</span>
+            <div class="btn-loader hidden">
+              <div class="loader-dot"></div>
+              <div class="loader-dot"></div>
+              <div class="loader-dot"></div>
+            </div>
+          </button>
+
+          <div class="signup-link">
+            Don't have an account? <a href="#" id="show-signup">Sign up</a>
+          </div>
+        </form>
+
+        <form class="signup-form hidden" id="signup-form">
+          <div class="form-group">
+            <label for="signup-name">Full Name</label>
+            <div class="input-with-icon">
+              <i class="fas fa-user"></i>
+              <input
+                type="text"
+                id="signup-name"
+                placeholder="Enter your full name"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="signup-email">Email</label>
+            <div class="input-with-icon">
+              <i class="fas fa-envelope"></i>
+              <input
+                type="email"
+                id="signup-email"
+                placeholder="Enter your email"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="signup-password">Password</label>
+            <div class="input-with-icon">
+              <i class="fas fa-lock"></i>
+              <input
+                type="password"
+                id="signup-password"
+                placeholder="Create a password"
+                required
+              />
+              <button
+                type="button"
+                class="toggle-password"
+                id="toggle-signup-password"
+              >
+                <i class="fas fa-eye"></i>
+              </button>
+            </div>
+          </div>
+
+          <button type="submit" class="login-btn">
+            <span class="btn-text">Sign Up</span>
+            <div class="btn-loader hidden">
+              <div class="loader-dot"></div>
+              <div class="loader-dot"></div>
+              <div class="loader-dot"></div>
+            </div>
+          </button>
+
+          <div class="signup-link">
+            Already have an account? <a href="#" id="show-login">Login</a>
+          </div>
+        </form>
+      </div>
+
+      <div class="login-features">
+        <div class="feature">
+          <i class="fas fa-search"></i>
+          <h3>Find Recipes</h3>
+          <p>Discover recipes based on ingredients you have</p>
+        </div>
+        <div class="feature">
+          <i class="fas fa-leaf"></i>
+          <h3>Reduce Waste</h3>
+          <p>Use leftover ingredients and reduce food waste</p>
+        </div>
+        <div class="feature">
+          <i class="fas fa-star"></i>
+          <h3>Authentic Indian</h3>
+          <p>100% authentic Indian recipes from all regions</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="notification" id="notification"></div>
+
+    <script>
+      // Login/Signup functionality
+      document.addEventListener("DOMContentLoaded", function () {
+        const loginForm = document.getElementById("login-form");
+        const signupForm = document.getElementById("signup-form");
+        const showSignup = document.getElementById("show-signup");
+        const showLogin = document.getElementById("show-login");
+        const togglePassword = document.getElementById("toggle-password");
+        const toggleSignupPassword = document.getElementById(
+          "toggle-signup-password"
+        );
+        const notification = document.getElementById("notification");
+
+        // Toggle between login and signup forms
+        showSignup.addEventListener("click", function (e) {
+          e.preventDefault();
+          loginForm.classList.add("hidden");
+          signupForm.classList.remove("hidden");
+          animateElement(signupForm, "slideInRight", 500);
+        });
+
+        showLogin.addEventListener("click", function (e) {
+          e.preventDefault();
+          signupForm.classList.add("hidden");
+          loginForm.classList.remove("hidden");
+          animateElement(loginForm, "slideInRight", 500);
+        });
+
+        // Password visibility toggle
+        togglePassword.addEventListener("click", function () {
+          const passwordInput = document.getElementById("password");
+          const icon = this.querySelector("i");
+
+          if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            icon.classList.remove("fa-eye");
+            icon.classList.add("fa-eye-slash");
+          } else {
+            passwordInput.type = "password";
+            icon.classList.remove("fa-eye-slash");
+            icon.classList.add("fa-eye");
+          }
+        });
+
+        toggleSignupPassword.addEventListener("click", function () {
+          const passwordInput = document.getElementById("signup-password");
+          const icon = this.querySelector("i");
+
+          if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            icon.classList.remove("fa-eye");
+            icon.classList.add("fa-eye-slash");
+          } else {
+            passwordInput.type = "password";
+            icon.classList.remove("fa-eye-slash");
+            icon.classList.add("fa-eye");
+          }
+        });
+
+        // Form submissions
+        loginForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+          const email = document.getElementById("email").value;
+          const password = document.getElementById("password").value;
+
+          // Simple validation
+          if (!email || !password) {
+            showNotification("Please fill in all fields", "warning");
+            return;
+          }
+
+          // Mock login - in real app, this would call an API
+          const user = {
+            email: email,
+            name: email.split("@")[0],
+            loginTime: new Date().toISOString(),
+          };
+
+          // Store user in localStorage
+          localStorage.setItem("user", JSON.stringify(user));
+
+          showNotification("Login successful! Redirecting...", "success");
+
+          setTimeout(() => {
+            window.location.href = "recipes.html";
+          }, 1500);
+        });
+
+        signupForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+          const name = document.getElementById("signup-name").value;
+          const email = document.getElementById("signup-email").value;
+          const password = document.getElementById("signup-password").value;
+
+          // Simple validation
+          if (!name || !email || !password) {
+            showNotification("Please fill in all fields", "warning");
+            return;
+          }
+
+          if (password.length < 6) {
+            showNotification(
+              "Password must be at least 6 characters",
+              "warning"
+            );
+            return;
+          }
+
+          // Mock signup - in real app, this would call an API
+          const user = {
+            name: name,
+            email: email,
+            signupTime: new Date().toISOString(),
+          };
+
+          // Store user in localStorage
+          localStorage.setItem("user", JSON.stringify(user));
+
+          showNotification(
+            "Account created successfully! Redirecting...",
+            "success"
+          );
+
+          setTimeout(() => {
+            window.location.href = "recipes.html";
+          }, 1500);
+        });
+
+        // Utility functions
+        function showNotification(message, type = "success") {
+          notification.textContent = message;
+          notification.className = "notification";
+
+          if (type === "warning") {
+            notification.style.backgroundColor = "var(--warning)";
+          } else if (type === "error") {
+            notification.style.backgroundColor = "var(--error)";
+          } else {
+            notification.style.backgroundColor = "var(--primary)";
+          }
+
+          notification.classList.add("show");
+
+          setTimeout(() => {
+            notification.classList.remove("show");
+          }, 3000);
+        }
+
+        function animateElement(element, animationName, duration = 500) {
+          element.style.animation = `${animationName} ${duration}ms ease forwards`;
+        }
+
+        // Check if user is already logged in
+        const user = localStorage.getItem("user");
+        if (user) {
+          window.location.href = "recipes.html";
+        }
+      });
+    </script>
+  </body>
+</html>
